@@ -1,22 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Laravel Core Base')</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
-    </style>
-</head>
-<body class="d-flex align-items-center">
-    <div class="container">
-        @yield('content')
-    </div>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>@yield('title', 'Laravel Core Base')</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Laravel Core Base Admin" name="description" />
+        <meta content="Laravel" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{{ url('assets/images/favicon.ico') }}">
+
+        <!-- Bootstrap Css -->
+        <link href="{{ url('/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="{{ url('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="{{ url('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <div class="account-pages my-5 pt-sm-5">
+            <div class="container">
+                @yield('content')
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT -->
+        <script src="{{ url('assets/libs/jquery/jquery.min.js') }}"></script>
+        <script src="{{ url('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url('assets/libs/metismenu/metisMenu.min.js') }}"></script>
+        <script src="{{ url('assets/libs/simplebar/simplebar.min.js') }}"></script>
+        <script src="{{ url('assets/libs/node-waves/waves.min.js') }}"></script>
+        
+        <!-- App js -->
+        <script src="{{ url('assets/js/app.js') }}"></script>
+    </body>
 </html>

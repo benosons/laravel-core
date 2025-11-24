@@ -18,7 +18,7 @@ class UserWebController extends BaseController
 
     public function index()
     {
-        $users = $this->service->getAllUsers();
+        $users = $this->service->getPaginatedUsers(15);
         return view('users.index', compact('users'));
     }
 

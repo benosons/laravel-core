@@ -23,6 +23,11 @@ class UserService extends BaseService
         return $this->repository->all();
     }
 
+    public function getPaginatedUsers(int $perPage = 15)
+    {
+        return $this->repository->paginate($perPage);
+    }
+
     public function createUser(array $data): Model
     {
         // Remove roles from data to avoid mass assignment errors

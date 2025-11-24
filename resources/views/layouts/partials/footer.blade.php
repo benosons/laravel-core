@@ -1,5 +1,14 @@
-<!-- Footer -->
-<footer class="c-footer">
-    <div>© {{ date('Y') }} <a href="{{ url('/') }}">Laravel Core Base</a></div>
-    <div class="ms-auto">Powered by <a href="https://coreui.io/" target="_blank">CoreUI</a></div>
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <script>document.write(new Date().getFullYear())</script> © Laravel Core Base.
+            </div>
+            <div class="col-sm-6">
+                <div class="text-sm-end d-none d-sm-block">
+                    Built with Laravel
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
