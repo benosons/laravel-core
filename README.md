@@ -1,64 +1,451 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel Core Base
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A robust Laravel base framework with Service-Repository pattern, authentication, role management, and a professional admin interface using Skote template.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- ✅ **Service-Repository Pattern** - Clean architecture with separation of concerns
+- ✅ **Base Classes** - BaseController, BaseService, BaseRepository for consistency
+- ✅ **API Response Trait** - Standardized JSON responses
+- ✅ **Exception Handling** - Custom exception handler with proper error formatting
+- ✅ **Authentication** - Laravel Sanctum for API and session-based auth
+- ✅ **User Management** - Complete CRUD with role assignment
+- ✅ **Role & Permission System** - Database structure for RBAC
+- ✅ **Admin UI** - Professional Skote admin template
+- ✅ **API Endpoints** - RESTful API for authentication and user management
+- ✅ **Feature Tests** - Comprehensive test coverage
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requirements
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP >= 8.0
+- Composer
+- MySQL 8.0 or SQLite
+- Node.js & NPM (optional, for asset compilation)
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Clone the Repository
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/benosons/laravel-core.git
+cd laravel-core
+```
 
-## Laravel Sponsors
+### 2. Install Dependencies
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```bash
+composer install
+```
 
-### Premium Partners
+### 3. Environment Configuration
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` file and configure your database:
+
+**For MySQL:**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel_core_base
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**For SQLite:**
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=/absolute/path/to/database.sqlite
+```
+
+### 4. Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### 5. Create Database
+
+**For MySQL:**
+```bash
+# Create database using MySQL client
+mysql -u root -p
+CREATE DATABASE laravel_core_base CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+exit;
+```
+
+**Or use PHP script:**
+```bash
+php -r "try { \$pdo = new PDO('mysql:host=127.0.0.1;port=3306', 'root', ''); \$pdo->exec('CREATE DATABASE IF NOT EXISTS laravel_core_base CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'); echo 'Database created successfully'; } catch (Exception \$e) { echo 'Error: ' . \$e->getMessage(); }"
+```
+
+**For SQLite:**
+```bash
+touch database/database.sqlite
+```
+
+### 6. Run Migrations
+
+```bash
+php artisan migrate
+```
+
+### 7. Create Admin User
+
+You can create an admin user using tinker:
+
+```bash
+php artisan tinker
+```
+
+Then run:
+```php
+$user = new App\Models\User();
+$user->name = 'Admin User';
+$user->email = 'admin@example.com';
+$user->password = bcrypt('password');
+$user->save();
+exit;
+```
+
+**Or use the provided script:**
+```bash
+php create_admin.php
+```
+
+### 8. Serve the Application
+
+**Using Laravel's built-in server:**
+```bash
+php artisan serve
+```
+
+The application will be available at `http://localhost:8000`
+
+**Using Laravel Herd (if installed):**
+
+The application will be automatically available at `http://laravel-core-base.test`
+
+## Usage
+
+### Web Interface
+
+1. **Login Page**
+   - Navigate to: `http://localhost:8000/login` (or `http://laravel-core-base.test/login`)
+   - Default credentials:
+     - Email: `admin@example.com`
+     - Password: `password`
+
+2. **User Management**
+   - After login, access: `http://localhost:8000/admin/users`
+   - Features:
+     - View all users with pagination
+     - Create new users with role assignment
+     - Edit existing users
+     - View user details
+     - Delete users
+
+### API Endpoints
+
+#### Authentication
+
+**Register:**
+```bash
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password",
+  "password_confirmation": "password"
+}
+```
+
+**Login:**
+```bash
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "password"
+}
+```
+
+**Get Current User:**
+```bash
+GET /api/auth/me
+Authorization: Bearer {your-token}
+```
+
+**Logout:**
+```bash
+POST /api/auth/logout
+Authorization: Bearer {your-token}
+```
+
+#### User Management
+
+**List Users:**
+```bash
+GET /api/users
+Authorization: Bearer {your-token}
+```
+
+**Create User:**
+```bash
+POST /api/users
+Authorization: Bearer {your-token}
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "password": "password",
+  "password_confirmation": "password",
+  "roles": ["admin"]
+}
+```
+
+**Get User:**
+```bash
+GET /api/users/{id}
+Authorization: Bearer {your-token}
+```
+
+**Update User:**
+```bash
+PUT /api/users/{id}
+Authorization: Bearer {your-token}
+Content-Type: application/json
+
+{
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "roles": ["user"]
+}
+```
+
+**Delete User:**
+```bash
+DELETE /api/users/{id}
+Authorization: Bearer {your-token}
+```
+
+## Testing
+
+Run the test suite:
+
+```bash
+php artisan test
+```
+
+Run specific test:
+```bash
+php artisan test --filter=AuthTest
+php artisan test --filter=UserTest
+php artisan test --filter=PostTest
+```
+
+## Project Structure
+
+```
+app/
+├── Core/
+│   ├── Base/
+│   │   ├── BaseController.php
+│   │   ├── BaseRepository.php
+│   │   └── BaseService.php
+│   ├── Interfaces/
+│   │   └── RepositoryInterface.php
+│   └── Traits/
+│       ├── ApiResponse.php
+│       └── Loggable.php
+├── Http/
+│   ├── Controllers/
+│   │   ├── Api/
+│   │   │   ├── AuthController.php
+│   │   │   ├── PostController.php
+│   │   │   └── UserController.php
+│   │   └── Web/
+│   │       ├── AuthWebController.php
+│   │       └── UserWebController.php
+│   └── Resources/
+│       ├── PostResource.php
+│       └── UserResource.php
+├── Models/
+│   ├── Permission.php
+│   ├── Post.php
+│   ├── Role.php
+│   └── User.php
+├── Repositories/
+│   ├── Interfaces/
+│   │   ├── PostRepositoryInterface.php
+│   │   └── UserRepositoryInterface.php
+│   ├── PostRepository.php
+│   └── UserRepository.php
+└── Services/
+    ├── AuthService.php
+    ├── PostService.php
+    └── UserService.php
+
+resources/
+└── views/
+    ├── auth/
+    │   └── login.blade.php
+    ├── layouts/
+    │   ├── partials/
+    │   │   ├── footer.blade.php
+    │   │   ├── header.blade.php
+    │   │   └── sidebar.blade.php
+    │   ├── app.blade.php
+    │   └── guest.blade.php
+    └── users/
+        ├── create.blade.php
+        ├── edit.blade.php
+        ├── index.blade.php
+        └── show.blade.php
+```
+
+## Architecture
+
+### Service-Repository Pattern
+
+This project follows the Service-Repository pattern:
+
+1. **Controllers** - Handle HTTP requests and responses
+2. **Services** - Contain business logic
+3. **Repositories** - Handle data access and database operations
+4. **Models** - Represent database tables
+
+### Example Flow
+
+```
+Request → Controller → Service → Repository → Model → Database
+                ↓
+            Response
+```
+
+## Customization
+
+### Adding a New Module
+
+1. **Create Model:**
+```bash
+php artisan make:model YourModel -m
+```
+
+2. **Create Repository Interface:**
+```php
+// app/Repositories/Interfaces/YourModelRepositoryInterface.php
+namespace App\Repositories\Interfaces;
+
+interface YourModelRepositoryInterface
+{
+    // Define your methods
+}
+```
+
+3. **Create Repository:**
+```php
+// app/Repositories/YourModelRepository.php
+namespace App\Repositories;
+
+use App\Core\Base\BaseRepository;
+use App\Models\YourModel;
+use App\Repositories\Interfaces\YourModelRepositoryInterface;
+
+class YourModelRepository extends BaseRepository implements YourModelRepositoryInterface
+{
+    public function __construct(YourModel $model)
+    {
+        parent::__construct($model);
+    }
+}
+```
+
+4. **Create Service:**
+```php
+// app/Services/YourModelService.php
+namespace App\Services;
+
+use App\Core\Base\BaseService;
+use App\Repositories\Interfaces\YourModelRepositoryInterface;
+
+class YourModelService extends BaseService
+{
+    protected YourModelRepositoryInterface $repository;
+
+    public function __construct(YourModelRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+}
+```
+
+5. **Create Controller:**
+```bash
+php artisan make:controller Api/YourModelController
+```
+
+6. **Register in Service Provider:**
+```php
+// app/Providers/RepositoryServiceProvider.php
+$this->app->bind(
+    YourModelRepositoryInterface::class,
+    YourModelRepository::class
+);
+```
+
+## Troubleshooting
+
+### Assets Not Loading
+
+If CSS/JS assets are not loading (404 errors), clear the cache:
+
+```bash
+php artisan view:clear
+php artisan cache:clear
+```
+
+Then hard refresh your browser (Ctrl+Shift+R or Cmd+Shift+R).
+
+### Database Connection Error
+
+Make sure your `.env` file has the correct database credentials and the database exists.
+
+### Permission Denied
+
+If you get permission errors, make sure the `storage` and `bootstrap/cache` directories are writable:
+
+```bash
+chmod -R 775 storage bootstrap/cache
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Credits
+
+- **Template:** [Skote Admin Template](https://themesbrand.com/skote/)
+- **Framework:** [Laravel](https://laravel.com/)
+- **Authentication:** [Laravel Sanctum](https://laravel.com/docs/sanctum)
+
+## Support
+
+For issues and questions, please open an issue on GitHub.
